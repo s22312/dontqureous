@@ -3,8 +3,7 @@ import requests
 import datetime
 
 ENABLE_DPRINT = False
-if ENABLE_DPRINT: dprint = lambda *a: print(*a)
-else: dprint = lambda *a: None
+dprint = lambda *a: print(*a) if ENABLE_DPRINT else None
 
 class Processor:
     def __init__(self, username: str, password: str) -> None:
