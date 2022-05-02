@@ -2,7 +2,7 @@ import json
 import requests
 import datetime
 
-ENABLE_DPRINT = False
+ENABLE_DPRINT = not False
 dprint = lambda *a: print(*a) if ENABLE_DPRINT else None
 
 class Processor:
@@ -78,6 +78,8 @@ class Processor:
         dprint(res.status_code, res.text)
 
     def do_workbook(self, workbook: dict) -> None:
+        #date = date
+        date = "0001/01/01 00:00:00.0000"
         res = self.session.get("https://api-from-202204.kcat.qureous.com/api/v6/questions/current/workbook/" + self.info["uuid"] + "/" + str(workbook["workbook_id"]) + "/")
         dprint(res.status_code, res.text)
         j = res.json()
@@ -100,24 +102,24 @@ class Processor:
                     "is_reviewing": "False",
                     "wrong_count": "-1",
                     "category": j["category"],
-                    "date": datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S.%f")[:-2],
+                    "date": date,
                     "workbook_id": workbook["workbook_id"],
                     "activity_log": [
                         {
                             "activity": "QuestionStart",
-                            "time": datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S.%f")[:-2]
+                            "time": date
                         },
                         {
                             "activity": "AnswerTap",
-                            "time": datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S.%f")[:-2]
+                            "time": date
                         },
                         {
                             "activity": "ModelAnswerShow",
-                            "time": datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S.%f")[:-2]
+                            "time": date
                         },
                         {
                             "activity": "ModelAnswerOk",
-                            "time": datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S.%f")[:-2]
+                            "time": date
                         }
                     ]
                 }
