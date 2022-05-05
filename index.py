@@ -46,14 +46,16 @@ class Processor:
     def do_all(self) -> None: #todo add leaning things
         print("ワークブックを取得中")
         workbooks = self.get_workbooks()
+        _workbook_dones = [workbook["workbook_name"] for workbook in workbooks if workbook["is_finished"]]
         for workbook in workbooks:
             print(workbook["workbook_name"], "を処理中")
-            if workbook["is_finished"]:
+            if workbook["is_finished"] or workbook["workbook_name"] in _workbook_dones:
                 print(workbook["workbook_name"], "は既に完了しています")
             else:
                 self.start_action()
                 self.do_workbook(workbook)
                 #self.end_workbook()
+                if not workbook["workbook_name"] in _workbook_dones: _workbook_dones.append(workbook["workbook_name"])
                 print(workbook["workbook_name"], "を処理しました")
 
         print("復習問題を取得中")
