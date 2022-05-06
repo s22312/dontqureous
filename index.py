@@ -105,11 +105,12 @@ class Processor:
                 json={
                     "uuid": self.info["uuid"],
                     "question": j["question_num"],
-                    "answer": [{
-                        "correct": 1,
-                        "column_no": index+1,
-                        "answer": a["answers"][0]["answer"]
-                    } for index, a in enumerate(j["answer_column"])] if len(j["answer_column"]) > 1 else [a["answers"][0]["answer"] for a in j["answer_column"]],
+                    #"answer": [{
+                    #    "correct": 1,
+                    #    "column_no": index+1,
+                    #    "answer": a["answers"][0]["answer"]
+                    #} for index, a in enumerate(j["answer_column"])] if len(j["answer_column"]) > 1 else [a["answers"][0]["answer"] for a in j["answer_column"]],
+                    "answer": [a["answers"][0]["answer"] for a in j["answer_column"]],
                     "correct": "1",
                     "time": "50000", #idk
                     "section": j["section"],
