@@ -100,6 +100,7 @@ class Processor:
         res = self.session.get("https://api-from-202204.kcat.qureous.com/api/v7/workbooks/" + str(workbook["workbook_id"]) + "/lock_status/" + self.info["uuid"] + "/")
         dprint(res.status_code, res.text)
         for i in range(workbook["number_of_questions"] - workbook["number_of_answers"]):
+            if j["question_num"] == "finish": break
             res = self.session.post(
                 "https://api-from-202204.kcat.qureous.com/api/v6/questions/next/",
                 json={
@@ -209,6 +210,8 @@ class Processor:
             review = self.get_review()
             if review["next_question"] not in ["end", "clear"]:
                 self.do_review(review)
+
+    def do_learning(self) -> None: ...
 
 def main():
     with open("config.json", "r", encoding="utf-8") as f:
